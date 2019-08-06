@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+    <head>
+        <title>Spring Security Example</title>
+    </head>
+    <body>
+        <h1>Welcome!</h1>
+        
+        <p>Click <a th:href="@{/hello}">here</a> to see a greeting.</p>
+        <p>Click <a th:href="@{/exam}">here</a> to see a exam.</p>
+        <p>Click <a th:href="@{/welcome}">here</a> to see user app example.</p>
+        <p>Click <a th:href="@{/category/demo}">here</a> to see user app <strong>Demo</strong></p>
+        
+         <p>
+         theme 1 :
+         	<a th:href="@{/category/1/1}">serie 1</a>
+         	<a th:href="@{/category/1/2}">serie 2</a>
+         	<a th:href="@{/category/1/3}">serie 3</a>
+         	<a th:href="@{/category/1/4}">serie 4</a>
+         	
+         </p>
+         
+         <p>
+         theme 2 :
+         	<a th:href="@{/category/2/1}">serie 1</a>
+         	<a th:href="@{/category/2/2}">serie 2</a>
+         	<a th:href="@{/category/2/3}">serie 3</a>
+         	<a th:href="@{/category/2/4}">serie 4</a>
+         	
+         </p>
+         
+         <p><a href="test_link.html/tt=abc">javascript get info from linkt</a></p>
+         
+         
+    </body>
+</html>

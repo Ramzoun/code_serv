@@ -1,0 +1,17 @@
+<html><head></head><body>
+
+hi
+<script>
+function getUrlParameter(name) {
+    name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+    var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+    var results = regex.exec(location.search);
+    return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+};
+
+console.log(getUrlParameter('tt'));
+
+</script>
+
+
+</body></html>

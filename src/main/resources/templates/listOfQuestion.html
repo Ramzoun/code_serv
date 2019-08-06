@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+    <head>
+        <title>Hello World!</title>
+        
+        <link rel="stylesheet" th:href="@{css/owl.carousel.min.css}">
+		<link rel="stylesheet" th:href="@{css/owl.theme.default.min.css}">
+		
+		<style>
+		.item {background-color: lightblue;}
+		</style>
+        
+    </head>
+    <body>
+    
+    <button onclick="openFullscreen();">Open Video in Fullscreen Mode</button>
+    <div id="countdown"></div>
+    
+    <audio id="soundPlayer" autoplay onended="">
+  <source src="/res/sound/1" type="audio/mpeg">
+</audio>
+    
+    
+<div id="artistList" class="owl-carousel owl-theme" style="width:50%;" ></div>
+
+
+
+
+
+<script th:src="@{javascript/jquery-3.4.1.min.js}"></script>
+<script th:src="@{javascript/owl.carousel.min.js}"></script>
+<script th:src="@{javascript/jquery.countdown360.min.js}"></script>
+
+
+<script type="text/javascript">
+
+var url = "/category/2/1";
+
+// Get the JSON file
+$.getJSON(url, function(data) {     
+  // Remove all child nodes (including text nodes) 
+  $("#artistList").empty();      
+  $.each(data, function(i, field){
+      $("#artistList").append('<div class="item">'
+    		  						+'<img src="/res/'+field.imgName+'" alt="Smiley face" onContextMenu="return false;" height="auto" width="50%">'
+      								+'<h4>'+field.qText+'</h4>'
+      								+'<input type="radio" name="rep'+i+'" value="a"> '+field.pro1+'<br>'
+      								+'<input type="radio" name="rep'+i+'" value="b"> '+field.pro2+'<br>'
+      								+'<input type="radio" name="rep'+i+'" value="c"> '+field.pro3+'<br>'
+      								+'<span id="song'+i+'" data-value="/res/sound/'+i+'"></span>'
+      							+'</div>');
+    });      
+}
+
+).done(function() {
+		  $('.owl-carousel').owlCarousel({
+		  	items:1,
+		  	loop:false,
+		  	autoplay:false,
+		      autoplayTimeout:30000,
+		      animateOut: 'fadeOut',
+		      margin:10,
+		      onTranslate : checkNext,
+		      nav:false,
+		      responsiveClass:true,
+		      responsive:{
+		          0:{
+		              items:1,
+		              nav:false
+		          },
+		          600:{
+		              items:1,
+		              nav:false
+		          },
+		          1000:{
+		              items:1,
+		              nav:false
+		          }
+		      }
+		  })
+});
+
+
+function checkNext(event) {
+	//if(event.item.index );
+	$("#countdown").countdown360().start();
+	
+	var audio = document.getElementById('soundPlayer');
+	audio.src=document.getElementById('song'+event.item.index).getAttribute('data-value');
+	audio.load();
+	audio.play();
+}
+
+</script>
+
+
+
+
+<script>
+$("#countdown").countdown360({
+	  radius      : 60.5,
+	  seconds     : 20,
+	  strokeWidth : 15,
+	  fillStyle   : '#0276FD',
+	  strokeStyle : '#003F87',
+	  fontSize    : 50,
+	  fontColor   : '#FFFFFF',
+	  autostart: false,
+	  onComplete  : function () { 
+		  					$('.owl-carousel').owlCarousel().trigger('next.owl.carousel');
+		  					//$("#countdown").countdown360().start(); 
+		  			}
+	}).start()
+</script>
+
+
+
+
+<script >
+
+document.addEventListener("keyup", function (e) {
+    var keyCode = e.keyCode ? e.keyCode : e.which;
+    		
+            if (keyCode == 44) {
+                stopPrntScr();
+            }
+            
+            if (keyCode == 13) {
+            	$('.owl-carousel').owlCarousel().trigger('next.owl.carousel');
+            	//$("#countdown").countdown360().start();
+            }
+            
+            if (keyCode == 27) {
+                alert('esc pressed');
+            }
+        });
+function stopPrntScr() {
+
+            var inpFld = document.createElement("input");
+            inpFld.setAttribute("value", ".");
+            inpFld.setAttribute("width", "0");
+            inpFld.style.height = "0px";
+            inpFld.style.width = "0px";
+            inpFld.style.border = "0px";
+            document.body.appendChild(inpFld);
+            inpFld.select();
+            document.execCommand("copy");
+            inpFld.remove(inpFld);
+        }
+        
+       function AccessClipboardData() {
+            try {
+                window.clipboardData.setData('text', "Access   Restricted");
+            } catch (err) {
+            }
+        }
+        setInterval("AccessClipboardData()", 300);
+
+</script>
+
+
+
+<script>
+/* Get the documentElement (<html>) to display the page in fullscreen */
+var elem = document.documentElement;
+
+/* View in fullscreen */
+function openFullscreen() {
+  if (elem.requestFullscreen) {
+    elem.requestFullscreen();
+  } else if (elem.mozRequestFullScreen) { /* Firefox */
+    elem.mozRequestFullScreen();
+  } else if (elem.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
+    elem.webkitRequestFullscreen();
+  } else if (elem.msRequestFullscreen) { /* IE/Edge */
+    elem.msRequestFullscreen();
+  }
+}
+
+
+</script>
+
+
+
+
+    	 
+    </body>
+</html>
