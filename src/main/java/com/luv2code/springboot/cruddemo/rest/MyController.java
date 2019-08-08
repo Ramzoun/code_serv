@@ -14,6 +14,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class MyController {
 	
+	@RequestMapping(value = "/access")
+    public void getauthorization() {
+        return;
+    }
+	
     @RequestMapping(value = "/res/{imgNum}", method = RequestMethod.GET,
             produces = MediaType.IMAGE_JPEG_VALUE)
 
@@ -28,7 +33,7 @@ public class MyController {
     
     
     @RequestMapping(value = "/res/sound/{imgNum}", method = RequestMethod.GET,
-            produces = MediaType.IMAGE_JPEG_VALUE)
+            produces = MediaType.ALL_VALUE)
 
     public void getSound(HttpServletResponse response, @PathVariable int imgNum) throws IOException {
 

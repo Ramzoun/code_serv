@@ -2,7 +2,9 @@ package com.luv2code.springboot.cruddemo.service;
 
 import java.util.ArrayList;
 import java.util.List;
- 
+
+import javax.servlet.http.HttpServletRequest;
+
 import com.luv2code.springboot.cruddemo.dao.*;
 import com.luv2code.springboot.cruddemo.entity.AppUser;
 
@@ -23,10 +25,15 @@ public class UserDetailsServiceImpl implements UserDetailsService {
  
     @Autowired
     private AppRoleDAO appRoleDAO;
+    
+    /*
+    @Autowired
+    private HttpServletRequest request;
+    */
  
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-        AppUser appUser = this.appUserDAO.findUserAccount(userName);
+        AppUser appUser = this.appUserDAO.findActiveUserAccount(userName);
  
         if (appUser == null) {
             System.out.println("User not found! " + userName);
@@ -52,6 +59,17 @@ public class UserDetailsServiceImpl implements UserDetailsService {
  
         return userDetails;
     }
+    
+    
+    /*
+    private String getClientIP() {
+        String xfHeader = request.getHeader("X-Forwarded-For");
+        if (xfHeader == null){
+            return request.getRemoteAddr();
+        }
+        return xfHeader.split(",")[0];
+    }
+    */
  
 }
 
